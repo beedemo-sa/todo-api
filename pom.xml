@@ -71,7 +71,6 @@
 			<version>${spring.version}</version>
 		</dependency>
 
-
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-grizzly2-http</artifactId>
@@ -125,9 +124,75 @@
 			  <artifactId>sonar-maven-plugin</artifactId>
 			  <version>2.6</version>
 			</plugin>
+		      <plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-pmd-plugin</artifactId>
+			<version>3.13.0</version>
+			<executions>
+			  <execution>
+			    <goals>
+			      <goal>check</goal>
+			      <goal>cpd-check</goal>
+			    </goals>
+			  </execution>
+			</executions>
+		      </plugin>
+		       <plugin>
+			 <groupId>org.apache.maven.plugins</groupId>
+			 <artifactId>maven-checkstyle-plugin</artifactId>
+			 <version>3.1.1</version>
+			 <configuration>
+			   <configLocation>google_checks.xml</configLocation>
+			   <encoding>UTF-8</encoding>
+			   <consoleOutput>true</consoleOutput>
+			   <failsOnError>true</failsOnError>
+			   <linkXRef>false</linkXRef>
+			 </configuration>
+			 <executions>
+			   <execution>
+			     <id>validate</id>
+			     <phase>validate</phase>
+			     <goals>
+			       <goal>check</goal>
+			     </goals>
+			   </execution>
+			 </executions>
+		       </plugin>
+		       <plugin>
+			  <groupId>org.jacoco</groupId>
+			  <artifactId>jacoco-maven-plugin</artifactId>
+			  <version>0.8.1</version>
+			  <executions>
+			      <execution>
+				  <goals>
+				      <goal>prepare-agent</goal>
+				  </goals>
+			      </execution>
+			      <execution>
+				  <id>report</id>
+				  <phase>package</phase>
+				  <goals>
+				      <goal>report</goal>
+				  </goals>
+			      </execution>
+			  </executions>
+			</plugin>
 		</plugins>
 	</build>
-
+	
+  <reporting>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-checkstyle-plugin</artifactId>
+            <version>3.1.1</version>
+            <configuration>
+              <configLocation>google_checks.xml</configLocation>
+            </configuration>
+        </plugin>
+    </plugins>
+  </reporting>
+	
 	<properties>
 		<jersey.version>2.13</jersey.version>
 		<spring.version>4.0.5.RELEASE</spring.version>
